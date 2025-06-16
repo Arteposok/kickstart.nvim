@@ -248,6 +248,16 @@ rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
+    'nvim-tree/nvim-tree.lua',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons', -- optional, for icons
+    },
+    config = function()
+      require('nvim-tree').setup()
+      vim.keymap.set('n', '<leader>f', ':NvimTreeToggle<CR>', { desc = 'Toggle File Tree' })
+    end,
+  },
+  {
     'akinsho/toggleterm.nvim',
     version = '*',
     config = function(_, _)
