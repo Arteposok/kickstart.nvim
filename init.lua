@@ -903,7 +903,19 @@ require('lazy').setup({
       signature = { enabled = true },
     },
   },
-
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    config = function()
+      ---@diagnostic disable-next-line: missing-fields
+      require('catppuccin').setup()
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      vim.cmd.colorscheme 'catppuccin'
+    end,
+  },
   {
     'rose-pine/neovim',
     name = 'rose-pine',
@@ -919,7 +931,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'rose-pine'
+      -- vim.cmd.colorscheme 'rose-pine'
     end,
   },
 
