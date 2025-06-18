@@ -704,6 +704,7 @@ require('lazy').setup({
         pyright = {},
         rust_analyzer = {},
         ruff = {},
+        black = {},
         prettier = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -798,8 +799,8 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        python = { 'ruff' },
-        rust = { 'rust-fmt' },
+        python = { 'ruff', 'black' },
+        rust = { 'rustfmt' },
         javascript = { 'prettier' },
         typescript = { 'prettier' },
         -- Conform can also run multiple formatters sequentially
