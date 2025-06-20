@@ -227,6 +227,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
+  pattern = '*',
+  callback = function()
+    if vim.bo.modified then
+      vim.cmd 'silent write'
+    end
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -375,7 +384,7 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-        { '<leader>f', group = '[F]ile options'}
+        { '<leader>f', group = '[F]ile options' },
       },
     },
   },
