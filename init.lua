@@ -264,44 +264,7 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  {
-    'akinsho/bufferline.nvim',
-    version = '*',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      vim.opt.termguicolors = true
-      require('bufferline').setup {
-        options = {
-          diagnostics = 'nvim_lsp',
-          color_icons = true,
-          always_show_bufferline = true,
-          separator_style = 'thick',
-        },
-      }
-      vim.keymap.set('n', '<Tab>', ':BufferLineCycleNext<CR>', {})
-      vim.keymap.set('n', '<S-Tab>', ':BufferLineCyclePrev<CR>', {})
-    end,
-  },
-  {
-    'nvim-tree/nvim-tree.lua',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons', -- optional, for icons
-    },
-    config = function()
-      require('nvim-tree').setup()
-      vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>', { desc = 'Toggle File Tree' })
-    end,
-  },
-  {
-    'akinsho/toggleterm.nvim',
-    version = '*',
-    config = function(_, _)
-      require('toggleterm').setup {
-        open_mapping = [[<c-\>]],
-        direction = 'horizontal',
-      }
-    end,
-  },
+
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
 
   -- NOTE: Plugins can also be added by using a table,
@@ -942,38 +905,6 @@ require('lazy').setup({
       signature = { enabled = true },
     },
   },
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    priority = 1000,
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('catppuccin').setup()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'catppuccin-mocha'
-    end,
-  },
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('rose-pine').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- vim.cmd.colorscheme 'rose-pine'
-    end,
-  },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -1060,7 +991,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
