@@ -265,6 +265,24 @@ rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
+    'akinsho/bufferline.nvim',
+    version = '*',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      vim.opt.termguicolors = true
+      require('bufferline').setup {
+        options = {
+          diagnostics = 'nvim_lsp',
+          color_icons = true,
+          always_show_bufferline = true,
+          separator_style = 'thick',
+        },
+      }
+      vim.keymap.set('n', '<Tab>', ':BufferLineCycleNext<CR>', {})
+      vim.keymap.set('n', '<S-Tab>', ':BufferLineCyclePrev<CR>', {})
+    end,
+  },
+  {
     'nvim-tree/nvim-tree.lua',
     dependencies = {
       'nvim-tree/nvim-web-devicons', -- optional, for icons
@@ -716,6 +734,8 @@ require('lazy').setup({
         ruff = {},
         black = {},
         prettier = {},
+        html = {},
+        cssls = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -813,6 +833,8 @@ require('lazy').setup({
         rust = { 'rustfmt' },
         javascript = { 'prettier' },
         typescript = { 'prettier' },
+        html = { 'prettier' },
+        css = { 'prettier' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
