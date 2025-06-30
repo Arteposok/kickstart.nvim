@@ -1,13 +1,13 @@
 return {
-  'rose-pine/neovim',
-  name = 'rose-pine',
+  'folke/tokyonight.nvim',
+  name = 'tokyonight',
   priority = 1000,
   config = function()
-    require('rose-pine').setup {
+    require('tokyonight').setup {
       styles = {
         comments = { italic = false }, -- Disable italics in comments
       },
     }
-    -- vim.cmd.colorscheme 'rose-pine-dawn'
+    -- vim.cmd.colorscheme 'tokyonight-day'
   end,
 }
