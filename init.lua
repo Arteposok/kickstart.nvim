@@ -151,6 +151,9 @@ vim.o.splitbelow = true
 --   and `:help lua-options-guide`
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.tabstop = 2 -- number of visual spaces per TAB
+vim.opt.shiftwidth = 2 -- spaces used for each step of (auto)indent
+vim.opt.expandtab = true -- convert tabs to spaces
 
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
@@ -699,8 +702,17 @@ require('lazy').setup({
         prettier = {},
         html = {},
         cssls = {},
-        ts_ls = {},
         eslint = {},
+        ts_ls = {
+          root_dir = require('lspconfig').util.root_pattern { 'package.json', 'tsconfig.json' },
+          single_file_support = false,
+          settings = {},
+        },
+        denols = {
+          root_dir = require('lspconfig').util.root_pattern { 'deno.json' },
+          single_file_support = false,
+          settings = {},
+        },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
