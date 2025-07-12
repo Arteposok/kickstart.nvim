@@ -89,7 +89,7 @@ P.S. You can delete this when you're done too. It's your config now! :)
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
+vim.g.python3_host_prog = "C:\\Users\\Artem\\AppData\\Roaming\\uv\\python\\cpython-3.13.5-windows-x86_64-none\\python.exe"
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
 
@@ -178,6 +178,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -698,6 +699,10 @@ require('lazy').setup({
         pyright = {},
         rust_analyzer = {},
         ruff = {},
+        gopls = {},
+        gofumpt = {},
+        goimports = {},
+        golines = {},
         black = {},
         prettier = {},
         html = {},
@@ -812,6 +817,7 @@ require('lazy').setup({
         typescript = { 'prettier' },
         html = { 'prettier' },
         css = { 'prettier' },
+        go = {'prettier', 'gofumpt', 'golines', 'goimports'},
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
