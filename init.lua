@@ -89,7 +89,6 @@ P.S. You can delete this when you're done too. It's your config now! :)
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.g.python3_host_prog = 'C:\\Users\\Artem\\AppData\\Roaming\\uv\\python\\cpython-3.13.5-windows-x86_64-none\\python.exe'
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -117,6 +116,7 @@ vim.o.showmode = false
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
+vim.g.python3_host_prog = vim.fn.system('uv python find --system'):gsub('%s+$', '')
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -696,7 +696,26 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        pyright = {},
+        pyright = {
+          --on_init = function(client)
+          --  vim.fn.jobstart('uv python find', {
+          --    cwd = vim.fn.getcwd(),
+          --    on_stdout = function(jobid, data, event)
+          --      local python_path = table.concat(data, ''):gsub('%s+$', '')
+          --      client.config.settings.python.pythonPath = data
+          --      vim.g.python3_host_prog = data
+          --    end,
+          --  })
+          --end,
+          python = {
+            pythonPath = vim.fn.system('uv python find --system'):gsub('%s+$', ''),
+            -- Fallback to .venv if uv fails
+            analysis = {
+              autoSearchPaths = true,
+              diagnosticMode = 'openFilesOnly',
+            },
+          },
+        },
         rust_analyzer = {},
         ruff = {},
         gopls = {},
