@@ -8,6 +8,6 @@ return {
         comments = { italic = false }, -- Disable italics in comments
       },
     }
-    vim.cmd.colorscheme 'tokyonight'
+    vim.cmd.colorscheme 'catppuccin-mocha'
   end,
 }
