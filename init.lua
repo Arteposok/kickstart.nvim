@@ -116,7 +116,7 @@ vim.o.showmode = false
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
-vim.g.python3_host_prog = vim.fn.system('uv python find'):gsub('%s+$', '')
+-- vim.g.python3_host_prog = vim.fn.system('uv python find'):gsub('%s+$', '')
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -694,13 +694,25 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        pyright = {
-          python = {
-            pythonPath = vim.fn.system('uv python find'):gsub('%s+$', ''),
-            venvPath = vim.fn.system('uv python find'):gsub('%s+$', ''),
-            analysis = {
-              autoSearchPaths = true,
-              diagnosticMode = 'openFilesOnly',
+        basedpyright = {
+          settings = {
+            basedpyright = {
+              python = {
+                venv = '.',
+              },
+              analysis = {
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                diagnosticMode = 'workspace',
+                typeCheckingMode = 'standard',
+              },
+              on_init = function(client)
+                client.config.settings.basedpyright = vim.tbl_deep_extend('force', client.config.settings.basedpyright or {}, {
+                  disableConfigFile = true,
+                  disableVscodeConfig = true,
+                })
+                client.notify 'workspace/didChangeConfiguration'
+              end,
             },
           },
         },
@@ -808,18 +820,13 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        python = { 'ruff', 'black' },
+        python = { 'black', 'ruff_formatter' },
         rust = { 'rustfmt' },
         javascript = { 'prettier' },
         typescript = { 'prettier' },
         html = { 'prettier' },
         css = { 'prettier' },
-        go = { 'prettier', 'gofumpt', 'golines', 'goimports' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        go = { 'gofumpt', 'golines', 'goimports' },
       },
     },
   },
