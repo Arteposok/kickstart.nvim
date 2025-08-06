@@ -266,6 +266,12 @@ rtp:prepend(lazypath)
 --    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
+vim.keymap.set('n', '<leader>`', function()
+  local clients = vim.lsp.get_active_clients()
+  for _, client in ipairs(clients) do
+    print(client.name, vim.inspect(client.server_capabilities.semanticTokensProvider))
+  end
+end, { desc = '[S]how [T]oken capabilities' })
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 
@@ -718,7 +724,41 @@ require('lazy').setup({
         },
         rust_analyzer = {},
         ruff = {},
-        gopls = {},
+        gopls = {
+          settings = {
+            gopls = {
+              semanticTokens = true, -- This is the critical setting
+              analyses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+            },
+          },
+          on_attach = function(client, bufnr)
+            if client.server_capabilities.semanticTokensProvider then
+              vim.lsp.semantic_tokens.start(bufnr, client.id)
+              vim.defer_fn(function()
+                vim.lsp.buf.semantic_tokens_full()
+              end, 1000)
+            end
+          end,
+          capabilities = {
+            textDocument = {
+              semanticTokens = {
+                dynamicRegistration = true,
+                multilineTokenSupport = true,
+              },
+            },
+          },
+        },
         gofumpt = {},
         goimports = {},
         golines = {},
