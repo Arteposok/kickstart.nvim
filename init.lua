@@ -724,10 +724,11 @@ require('lazy').setup({
         },
         rust_analyzer = {},
         ruff = {},
+        htmx = {},
         gopls = {
           settings = {
             gopls = {
-              semanticTokens = true, -- This is the critical setting
+              semanticTokens = true,
               analyses = {
                 unusedparams = true,
               },
@@ -742,14 +743,6 @@ require('lazy').setup({
               },
             },
           },
-          on_attach = function(client, bufnr)
-            if client.server_capabilities.semanticTokensProvider then
-              vim.lsp.semantic_tokens.start(bufnr, client.id)
-              vim.defer_fn(function()
-                vim.lsp.buf.semantic_tokens_full()
-              end, 1000)
-            end
-          end,
           capabilities = {
             textDocument = {
               semanticTokens = {
@@ -764,7 +757,12 @@ require('lazy').setup({
         golines = {},
         black = {},
         prettier = {},
-        html = {},
+        html = {
+          on_attach = function(client, _)
+            client.server_capabilities.documentFormattingProvider = true
+          end,
+          filetypes = { 'html', 'htmx' }, -- Add HTMX if needed
+        },
         cssls = {},
         ts_ls = {
           root_dir = require('lspconfig').util.root_pattern { 'package.json', 'tsconfig.json' },
