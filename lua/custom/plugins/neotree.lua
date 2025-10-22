@@ -9,6 +9,6 @@ return {
   lazy = false, -- neo-tree will lazily load itself
   config = function()
     require('neo-tree').setup {}
-    vim.keymap.set('n', '<leader>ft', ':Neotree source=filesystem reveal=true position=right action=show<CR>', { desc = 'Toggle File Tree' })
+    vim.keymap.set('n', '<leader>ft', ':Neotree source=filesystem reveal=true position=right<CR>', { desc = 'Toggle File Tree' })
   end,
 }
