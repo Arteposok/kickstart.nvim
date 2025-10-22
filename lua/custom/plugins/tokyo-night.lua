@@ -22,6 +22,6 @@ return {
       },
     }
 
-    vim.cmd.colorscheme 'tokyonight-night'
+    vim.cmd.colorscheme 'gruvbox'-- 'tokyonight-night'
   end,
 }
