@@ -228,7 +228,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 vim.api.nvim_create_autocmd({ 'InsertLeave' }, {
-  pattern = '*',
+  pattern = '*\\.*',
   callback = function()
     if vim.bo.modified then
       vim.cmd 'silent write'
