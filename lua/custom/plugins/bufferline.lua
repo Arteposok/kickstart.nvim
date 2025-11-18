@@ -9,7 +9,7 @@ return {
         diagnostics = 'nvim_lsp',
         color_icons = true,
         always_show_bufferline = true,
-        separator_style = 'thin',
+        separator_style = 'thick',
       },
     }
     vim.keymap.set('n', '<Tab>', ':BufferLineCycleNext<CR>', {})
